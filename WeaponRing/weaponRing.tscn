@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cakipfnw5833e"]
+
+[ext_resource type="Script" path="res://WeaponRing/WeaponRing.gd" id="1_vccci"]
+
+[node name="WeaponRing" type="Node3D"]
+script = ExtResource("1_vccci")
