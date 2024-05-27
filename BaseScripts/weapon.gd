@@ -64,13 +64,13 @@ func positionWeaponCloseToEnemy(enemy: Node3D):
     var enemyPosition = enemyGlobalTransform.origin
     # var enemyRotation = enemyGlobalTransform.basis.get_euler()
 
-    global_transform.origin = enemyPosition
+    # global_transform.origin = enemyPosition
+    global_transform.origin = global_transform.origin.lerp(enemyPosition, 1)
     global_transform.basis = enemyGlobalTransform.basis
     global_transform.basis = global_transform.basis.rotated(Vector3(0, 1, 0), PI)
     global_transform.origin += global_transform.basis.z * attackRange
 
     # make the above transformations but with a lerp function to make it smooth
-    # global_transform.origin = global_transform.origin.lerp(enemyPosition, 1)
     # global_transform.basis = global_transform.basis.slerp(enemyGlobalTransform.basis, 1)
 
 func attack():

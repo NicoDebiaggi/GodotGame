@@ -9,7 +9,7 @@ const weaponHeight = 1.7
 func _ready():
   # add two longSwords to the weaponList
   addNewWeapon(longSword)
-  # addNewWeapon(longSword, {"detectionRange": 7})
+  addNewWeapon(longSword, {"detectionRange": 7})
 
 func _process(delta):
   #  make the weapon ring rotate
