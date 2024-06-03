@@ -12,6 +12,7 @@ extends CharacterBody3D
 @onready var animationTree: AnimationTree = $skeletonMinion_mesh/AnimationTree
 @onready var navAgent: NavigationAgent3D = $NavigationAgent3D
 const navAgentOffset = .3
+var just_hit: bool = false
 var isDead = false
 var isAttacking = false
 
@@ -63,3 +64,18 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3):
     velocity = Vector3.ZERO
 
   move_and_slide()
+
+func _on_just_hit_timeout():
+  just_hit = false
+
+func _on_area_3d_body_part_hit(damage_received:Variant, isCritic:Variant, critic_multiplier:Variant):
+  if (isDead or just_hit):
+    return
+  else :
+    print("Hit")
+    get_node("just_hit").start()
+    just_hit = true
+    var finalDamage = damage_received
+    if isCritic:
+      finalDamage *= critic_multiplier
+    health -= finalDamage

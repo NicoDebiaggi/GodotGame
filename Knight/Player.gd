@@ -28,6 +28,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("move_dash") && canDash:
 		velocity = -direction * DASH_VELOCITY
 		canDash = false
+		# see if we move this node out of the player script into the scene
 		await get_tree().create_timer(DASH_TIMEOUT).timeout
 		canDash = true
 
@@ -58,16 +59,16 @@ func _physics_process(delta):
 		direction = transform.basis.z
 
 	# Set the run animation
-	var runBlendValue = ((velocity.length() / SPEED) * 2) - 1
-	var currentRunFastBlendValue = knightAnimationPlayer.get("parameters/run_fast_transition/blend_amount")
-	var runFastBlendValue = 0
+	var runBlendValue: float = ((velocity.length() / SPEED) * 2) - 1
+	var currentRunFastBlendValue: float = knightAnimationPlayer.get("parameters/Alive/run_fast_transition/blend_amount")
+	var runFastBlendValue: float = 0.0
 
 	if runBlendValue > 1:
-		runFastBlendValue = lerp(currentRunFastBlendValue, 1.0, 1)
+		runFastBlendValue = lerp(currentRunFastBlendValue, 1.0, 1.0)
 	else:
 		runFastBlendValue = lerp(currentRunFastBlendValue, 0.0, 0.01)
 
-	knightAnimationPlayer.set("parameters/run_transition/blend_amount", clamp(runBlendValue, -1, 1))
-	knightAnimationPlayer.set("parameters/run_fast_transition/blend_amount", clamp(runFastBlendValue, 0, 1))
+	knightAnimationPlayer.set("parameters/Alive/run_transition/blend_amount", clamp(runBlendValue, -1, 1))
+	knightAnimationPlayer.set("parameters/Alive/run_fast_transition/blend_amount", clamp(runFastBlendValue, 0, 1))
 	
 	move_and_slide()

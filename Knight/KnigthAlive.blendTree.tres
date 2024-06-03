@@ -1,0 +1,50 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=11 format=3 uid="uid://dn22kn1dw6ljy"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l8hgj"]
+animation = &"Knight/Running_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dkxh2"]
+animation = &"Knight/Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqvx2"]
+animation = &"Knight/Running_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lg2af"]
+animation = &"Knight/Walking_B"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_a83md"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ver6t"]
+
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_h5nly"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jarvh"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_b5r1g"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_t3pfe"]
+
+[resource]
+graph_offset = Vector2(20.7933, -28.1522)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_lg2af")
+nodes/Animation/position = Vector2(264.99, 115.555)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_l8hgj")
+"nodes/Animation 2/position" = Vector2(260, 240)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_dkxh2")
+"nodes/Animation 3/position" = Vector2(310, -10)
+"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_hqvx2")
+"nodes/Animation 4/position" = Vector2(260, 370)
+nodes/idle_timeScale/node = SubResource("AnimationNodeTimeScale_a83md")
+nodes/idle_timeScale/position = Vector2(490, -20)
+nodes/output/position = Vector2(1460, 110)
+nodes/run_fast_transition/node = SubResource("AnimationNodeBlend2_ver6t")
+nodes/run_fast_transition/position = Vector2(720, 260)
+nodes/run_transition/node = SubResource("AnimationNodeBlend3_h5nly")
+nodes/run_transition/position = Vector2(990, 120)
+nodes/running_A_timeScale/node = SubResource("AnimationNodeTimeScale_jarvh")
+nodes/running_A_timeScale/position = Vector2(490, 240)
+nodes/running_B_timeScale/node = SubResource("AnimationNodeTimeScale_b5r1g")
+nodes/running_B_timeScale/position = Vector2(490, 370)
+nodes/walking_B_timeScale/node = SubResource("AnimationNodeTimeScale_t3pfe")
+nodes/walking_B_timeScale/position = Vector2(480, 110)
+node_connections = [&"idle_timeScale", 0, &"Animation 3", &"output", 0, &"run_transition", &"run_fast_transition", 0, &"running_A_timeScale", &"run_fast_transition", 1, &"running_B_timeScale", &"run_transition", 0, &"idle_timeScale", &"run_transition", 1, &"walking_B_timeScale", &"run_transition", 2, &"run_fast_transition", &"running_A_timeScale", 0, &"Animation 2", &"running_B_timeScale", 0, &"Animation 4", &"walking_B_timeScale", 0, &"Animation"]

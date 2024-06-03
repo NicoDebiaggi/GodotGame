@@ -9,7 +9,7 @@ const weaponHeight = 1.7
 func _ready():
   # add two longSwords to the weaponList
   addNewWeapon(longSword)
-  addNewWeapon(longSword, {"detectionRange": 7})
+  # addNewWeapon(longSword, {"detectionRange": 7})
 
 func _process(delta):
   #  make the weapon ring rotate
@@ -22,7 +22,9 @@ func _process(delta):
     var angle = i * 2 * PI / idlingWeapons.size()
     var x = cos(angle) * 2.5
     var z = sin(angle) * 2.5
-    idlingWeapons[i].transform.origin = Vector3(x, weaponHeight, z)
+    # idlingWeapons[i].transform.origin = Vector3(x, weaponHeight, z)
+    # move the weapon using lerp
+    idlingWeapons[i].transform.origin = idlingWeapons[i].transform.origin.lerp(Vector3(x, weaponHeight, z), delta * 5)
     # make the weapon look at the center of the ring, declare var ring center as the center of this node
     var ringCenter = self.global_transform.origin
     ringCenter.y = weaponHeight + 1
