@@ -26,6 +26,7 @@ var closestDistance: float = 1000
 @onready var animationTree: AnimationTree = $"2H_Sword/AnimationTree"
 @onready var hitZone: Area3D = $"2H_Sword/Area3D"
 const baseAnimDuration = 1.6667
+@onready var newBaseDuration = attackSpeed / baseAnimDuration
 
 # Generate a detection zone for enemies, should be a cilinder shape positiones on centerNodeRef with a radius of detectionRange
 var detectionZone: Area3D = Area3D.new()
@@ -46,7 +47,6 @@ func _ready():
     centerNodeRef.add_child.call_deferred(detectionZone)
     detectionZone.position = Vector3(0, 2, 0)
 
-    var newBaseDuration = attackSpeed / baseAnimDuration
     animationTree.set("parameters/VerticalSwing/TimeScale/scale", newBaseDuration)
     animationTree.set("parameters/LeftDiagonalSwing/TimeScale/scale", newBaseDuration)
     animationTree.set("parameters/RightDiagonalSwing/TimeScale/scale", newBaseDuration)
@@ -66,7 +66,7 @@ func _process(_delta):
     if closestEnemy != null:
         isIdling = false
         animationTree.set("parameters/conditions/isIdling", false)
-        positionWeaponCloseToEnemy(closestEnemy)
+        # positionWeaponCloseToEnemy(closestEnemy)
     else:
         animationTree.set("parameters/conditions/isIdling", true)
         isIdling = true
@@ -77,7 +77,7 @@ func positionWeaponCloseToEnemy(enemy: Node3D):
     var enemyGlobalTransform = enemy.global_transform
     var enemyPosition = enemyGlobalTransform.origin
     var direction = enemyPosition.direction_to(centerNodeRef.global_transform.origin).normalized()
-    var attackPosition = enemyPosition + direction * (attackRange - 0.25)
+    var attackPosition = enemyPosition + direction * (attackRange - 0.5)
     attackPosition.y = attackPosition.y + 0.5
     global_transform.origin = global_transform.origin.lerp(attackPosition, 0.1)
 
@@ -92,7 +92,7 @@ func attack(enemy: Node3D):
     animationTree.set("parameters/conditions/isAttacking", true)
     attackedEnemy = enemy
     isAttacking = true
-    get_tree().create_timer(attackSpeed).connect("timeout", on_attack_timeout)
+    get_tree().create_timer(newBaseDuration - 1).connect("timeout", on_attack_timeout)
 
 func on_attack_timeout():
     animationTree.set("parameters/conditions/isAttacking", false)
@@ -101,7 +101,7 @@ func on_attack_timeout():
     closestEnemy = null
     closestDistance = 1000
 
-func _on_damage_detector_area_entered(area:bodyHitbox):
+func _on_damage_detector_area_entered(area: Area3D):
     # Assert that the area is in the enemy_hitbox group
     if area.is_in_group("enemy_hitbox"):
         area.hit(damage, weaponCritic, weaponKnockback)

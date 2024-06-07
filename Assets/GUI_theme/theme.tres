@@ -1,0 +1,58 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://scmb6u12qy3"]
+
+[ext_resource type="Texture2D" uid="uid://bp8xvmsulqdbq" path="res://Assets/GUI_theme/Vector/fantasy-ui-borders.svg" id="1_1r35m"]
+[ext_resource type="FontFile" uid="uid://c4tj2vqb8ye0x" path="res://Assets/GUI_theme/Fonts/FiraSans-Medium.ttf" id="2_d4t2u"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xn161"]
+texture = ExtResource("1_1r35m")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.5927
+region_rect = Rect2(414, 164, 48, 48)
+modulate_color = Color(0.764511, 0.764511, 0.764511, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e601v"]
+texture = ExtResource("1_1r35m")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.5927
+region_rect = Rect2(414, 164, 48, 48)
+modulate_color = Color(0.823924, 0.823924, 0.823924, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h3t1r"]
+texture = ExtResource("1_1r35m")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.5927
+region_rect = Rect2(414, 164, 48, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_om8ox"]
+texture = ExtResource("1_1r35m")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 15.0
+region_rect = Rect2(40, 40, 48, 47)
+modulate_color = Color(0.0708273, 0.0708272, 0.0708272, 0.760784)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evcqg"]
+bg_color = Color(0.739288, 0.739288, 0.739288, 0.196078)
+corner_detail = 1
+
+[resource]
+default_base_scale = 1.0
+default_font = ExtResource("2_d4t2u")
+default_font_size = 24
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/hover = SubResource("StyleBoxTexture_xn161")
+Button/styles/normal = SubResource("StyleBoxTexture_e601v")
+Button/styles/pressed = SubResource("StyleBoxTexture_h3t1r")
+Panel/styles/panel = SubResource("StyleBoxTexture_om8ox")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_evcqg")

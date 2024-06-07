@@ -1,26 +1,38 @@
-extends CharacterBody3D
+class_name player extends CharacterBody3D
 
-const SPEED = 8
-const SPEED_ACCELERATION = 5
-const SPEED_FRICTION = 7
-const DASH_VELOCITY = 80
-const DASH_TIMEOUT = 0.5
-const ROTATION_WEIGHT = 10
-const DASH_TRAIL_LENGTH = 0.1
+@export var SPEED = 8
+@export var SPEED_ACCELERATION = 5
+@export var SPEED_FRICTION = 7
+@export var DASH_VELOCITY = 80
+@export var DASH_TIMEOUT = 0.5
+@export var ROTATION_WEIGHT = 10
+@export var DASH_TRAIL_LENGTH = 0.1
+@export var MAX_HEALTH = 100
 
 @onready var knightRef = $Knight_mesh
 @onready var knightAnimationPlayer: AnimationTree = knightRef.get_node("AnimationTree")
 @onready var dashParticles = $Trail3D
 
+signal game_over # Signal to be emitted when the player dies.
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var canDash: bool = true
+var just_hit: bool = false
+var isDead: bool = false
+var health: int = MAX_HEALTH
 
 func _physics_process(delta):
+	if isDead:
+		return
+	if health < 1 || isDead:
+		kill()
+		return
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	
+
 	var input_dir = Input.get_vector("move_left", "move_rigth", "move_up", "move_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
@@ -36,10 +48,10 @@ func _physics_process(delta):
 	if velocity.length() > SPEED:
 		dashParticles.segments = lerp(dashParticles.segments, 15, 0.1)
 		dashParticles.distance = lerp(dashParticles.distance, DASH_TRAIL_LENGTH, 0.1)
-	else :
+	else:
 		dashParticles.segments = lerp(dashParticles.segments, 0, 0.5)
 		dashParticles.distance = lerp(dashParticles.distance, 0.0, 0.5)
-	
+
 	if direction.length() > 0:
 		# Rotate the character to the direction of movement.
 		var desired_rotation_y = atan2( - direction.x, -direction.z)
@@ -72,3 +84,24 @@ func _physics_process(delta):
 	knightAnimationPlayer.set("parameters/Alive/run_fast_transition/blend_amount", clamp(runFastBlendValue, 0, 1))
 	
 	move_and_slide()
+
+func kill():
+	isDead = true
+	knightAnimationPlayer.set("parameters/conditions/isDead", true)
+	await get_tree().create_timer(1.0).timeout
+	emit_signal("game_over")
+	# game over screen or something
+
+func _on_just_hit_timeout():
+	just_hit = false
+
+func _on_area_3d_body_part_hit(damage_received, isCritic, critic_multiplier, _knockback):
+	if (isDead or just_hit):
+		return
+	else:
+		get_node("just_hit").start()
+		just_hit = true
+		var finalDamage = damage_received
+		if isCritic:
+			finalDamage *= critic_multiplier
+		health -= finalDamage

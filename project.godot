@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="New Game"
-run/main_scene="res://Levels/LevelOne/level_one.level.tscn"
+run/main_scene="res://Menus/Screens/MainMenu/MainMenu.screen.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SceneManager="*res://BaseScripts/SceneManager.gd"
 
 [display]
 
@@ -23,6 +27,11 @@ window/size/viewport_height=1080
 [filesystem]
 
 import/fbx/enabled=false
+
+[gui]
+
+theme/custom="res://Assets/GUI_theme/theme.tres"
+theme/custom_font="res://Assets/GUI_theme/Fonts/FiraSans-Medium.ttf"
 
 [input]
 
@@ -56,3 +65,7 @@ move_dash={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

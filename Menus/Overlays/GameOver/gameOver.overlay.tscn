@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=3 uid="uid://yim1mlqb5256"]
+
+[ext_resource type="Script" path="res://Menus/Overlays/GameOver/gameOver.gd" id="1_kgc2e"]
+[ext_resource type="Theme" uid="uid://scmb6u12qy3" path="res://Assets/GUI_theme/theme.tres" id="2_dhj5s"]
+[ext_resource type="Shader" path="res://Menus/blurBg.gdshader" id="3_5ry3d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p14mt"]
+shader = ExtResource("3_5ry3d")
+shader_parameter/blur_amount = 3.5
+shader_parameter/mix_amount = 0.4
+shader_parameter/color_over = Color(0.444843, 0.444843, 0.444843, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_300xd"]
+font_size = 64
+font_color = Color(0.862522, 0.862522, 0.862522, 1)
+
+[sub_resource type="Animation" id="Animation_cliaj"]
+resource_name = "FadeIn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 1080), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_epulr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwqom"]
+_data = {
+"FadeIn": SubResource("Animation_cliaj"),
+"RESET": SubResource("Animation_epulr")
+}
+
+[node name="GameOver" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_dhj5s")
+script = ExtResource("1_kgc2e")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_p14mt")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/CenterContainer"]
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/Panel"]
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 500.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_300xd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 350)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 2.08165e-12)
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Exit"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 2.08165e-12)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play Again"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wwqom")
+}
+
+[connection signal="button_up" from="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer/ExitButton" to="." method="_on_exit_button_button_up"]
+[connection signal="button_up" from="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer2/PlayButton" to="." method="_on_play_button_button_up"]

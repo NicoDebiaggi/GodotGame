@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctthro8gtiwls"]
+
+[ext_resource type="Theme" uid="uid://scmb6u12qy3" path="res://Assets/GUI_theme/theme.tres" id="2_8e4l6"]
+[ext_resource type="Script" path="res://Menus/Screens/MainMenu/MainMenu.gd" id="2_nph3x"]
+[ext_resource type="Shader" path="res://Menus/blurBg.gdshader" id="3_674b0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p14mt"]
+shader = ExtResource("3_674b0")
+shader_parameter/blur_amount = 3.5
+shader_parameter/mix_amount = 0.4
+shader_parameter/color_over = Color(0.444843, 0.444843, 0.444843, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_300xd"]
+font_size = 64
+font_color = Color(0.862522, 0.862522, 0.862522, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_8e4l6")
+script = ExtResource("2_nph3x")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_p14mt")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/CenterContainer"]
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/Panel"]
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 500.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Game name"
+label_settings = SubResource("LabelSettings_300xd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 350)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 2.08165e-12)
+layout_mode = 2
+
+[node name="OptionsButton" type="Button" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Options"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 2.08165e-12)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play"
+
+[connection signal="button_up" from="PanelContainer/CenterContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer2/PlayButton" to="." method="_on_play_button_button_up"]
