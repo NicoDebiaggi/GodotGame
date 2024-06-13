@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dhq3on74tfwmh"]
+[gd_scene load_steps=11 format=3 uid="uid://dhq3on74tfwmh"]
 
 [ext_resource type="Script" path="res://BaseScripts/World.gd" id="1_ae5pf"]
 [ext_resource type="PackedScene" uid="uid://b75vfuvmg6ij0" path="res://Levels/LevelOne/Map/map.mesh.glb" id="1_kkynb"]
 [ext_resource type="PackedScene" uid="uid://cjs06cyrp1s20" path="res://Knight/Knigth.player.tscn" id="2_rddxa"]
 [ext_resource type="PackedScene" uid="uid://dmmqu8oom0h52" path="res://Enemies/SkeletonMinion/skeletonMinion.enemy.tscn" id="2_urgkk"]
+[ext_resource type="PackedScene" uid="uid://ff2laixgaauq" path="res://Menus/Overlays/HUD/HUD.overlay.tscn" id="5_1n80k"]
 [ext_resource type="PackedScene" uid="uid://yim1mlqb5256" path="res://Menus/Overlays/GameOver/gameOver.overlay.tscn" id="5_3xaeu"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6hvpo"]
@@ -28,7 +29,12 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 navigation_mesh = SubResource("NavigationMesh_6hvpo")
 
 [node name="SkeletonMinion" parent="Map_One/NavigationRegion3D" instance=ExtResource("2_urgkk")]
-transform = Transform3D(0.773597, 0, 0.633678, 0, 1, 0, -0.633678, 0, 0.773597, 4.31, 1, 4.31)
+transform = Transform3D(1, 0, 2.50325e-08, 0, 1, 0, 2.50325e-08, 0, 1, 2.23033, 1.15457, -2.23033)
+attackSpeed = 1.0
+health = 30.0
+
+[node name="SkeletonMinion2" parent="Map_One/NavigationRegion3D" instance=ExtResource("2_urgkk")]
+transform = Transform3D(1, 0, 2.50325e-08, 0, 1, 0, 2.50325e-08, 0, 1, -6.87171, 1.44269, 6.87171)
 attackSpeed = 1.0
 health = 30.0
 
@@ -71,6 +77,8 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_isuo7")
+
+[node name="HUD" parent="." instance=ExtResource("5_1n80k")]
 
 [node name="GameOver" parent="." instance=ExtResource("5_3xaeu")]
 

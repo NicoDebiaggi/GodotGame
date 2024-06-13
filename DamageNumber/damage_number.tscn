@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5aw4gflqem05"]
+
+[ext_resource type="Script" path="res://DamageNumber/damage_number.gd" id="1_8liah"]
+
+[node name="DamageNumber" type="Node3D"]
+script = ExtResource("1_8liah")
+
+[node name="LabelContainer" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Label3D" type="Label3D" parent="LabelContainer"]
+unique_name_in_owner = true
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+billboard = 1
+double_sided = false
+alpha_cut = 1
+texture_filter = 1
+modulate = Color(1, 1, 1, 0)
+outline_modulate = Color(0, 0, 0, 0)
+text = "20"
+font_size = 48
+outline_size = 8

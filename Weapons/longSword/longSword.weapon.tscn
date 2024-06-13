@@ -354,7 +354,14 @@ graph_offset = Vector2(-345.535, -106.906)
 [node name="LongSword" type="Node3D" groups=["weapons"]]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 0.999999, -3.48787e-16, -3.48787e-16, 3.48787e-16, 0.999999, 0, 0, 0)
 script = ExtResource("1_3usl6")
+damage = null
+weaponCritic = null
+weaponKnockback = null
+detectionRange = null
+attackRange = null
 attackSpeed = 3.0
+weaponLevel = null
+weaponType = null
 weaponName = "Long Sword"
 
 [node name="2H_Sword" type="MeshInstance3D" parent="."]

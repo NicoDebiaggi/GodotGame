@@ -1,0 +1,218 @@
+[gd_scene load_steps=14 format=3 uid="uid://ff2laixgaauq"]
+
+[ext_resource type="Theme" uid="uid://scmb6u12qy3" path="res://Assets/GUI_theme/theme.tres" id="1_t4cqo"]
+[ext_resource type="Texture2D" uid="uid://cf3loepvk0m4" path="res://Assets/textures/coinsprite-removebg.png" id="3_fb3da"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksgj3"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(20, 37, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edet5"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(92, 37, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iughq"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(164, 37, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3hgi"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(236, 37, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qc72"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(308, 37, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eplml"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(20, 142, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4b124"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(92, 142, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3y34a"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(164, 142, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy33m"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(236, 142, 72, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfsnt"]
+atlas = ExtResource("3_fb3da")
+region = Rect2(308, 142, 72, 71)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p130v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksgj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edet5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iughq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3hgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qc72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eplml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4b124")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3y34a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gy33m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfsnt")
+}],
+"loop": true,
+"name": &"coinSpin",
+"speed": 10.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HUD" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_t4cqo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="Health_text" type="Label" parent="VBoxContainer/MarginContainer/GridContainer/GridContainer"]
+layout_mode = 2
+text = "Health"
+
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer/MarginContainer/GridContainer/GridContainer"]
+custom_minimum_size = Vector2(260, 35)
+layout_mode = 2
+value = 60.0
+show_percentage = false
+
+[node name="Health" type="Label" parent="VBoxContainer/MarginContainer/GridContainer/GridContainer"]
+layout_mode = 2
+text = "55/55"
+
+[node name="Xp_text" type="Label" parent="VBoxContainer/MarginContainer/GridContainer/GridContainer"]
+layout_mode = 2
+text = "Exp"
+
+[node name="XpBar2" type="ProgressBar" parent="VBoxContainer/MarginContainer/GridContainer/GridContainer"]
+custom_minimum_size = Vector2(260, 35)
+layout_mode = 2
+theme_type_variation = &"ProgressBar_XP"
+value = 60.0
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 2.0
+alignment = 1
+
+[node name="FloorLabel" type="Label" parent="VBoxContainer/MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+theme_override_font_sizes/font_size = 28
+text = "Floor 1"
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="VBoxContainer/MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+text = "18:37"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer/GridContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 1
+
+[node name="FloorLabel" type="Label" parent="VBoxContainer/MarginContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+theme_override_font_sizes/font_size = 28
+text = "Floor 1"
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="VBoxContainer/MarginContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+text = "18:37"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+alignment = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+theme_override_font_sizes/font_size = 36
+text = "32"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="CoinContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/GridContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer/MarginContainer/GridContainer/HBoxContainer/MarginContainer/CoinContainer"]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_p130v")
+animation = &"coinSpin"
+autoplay = "coinSpin"
+frame_progress = 0.0194684
+offset = Vector2(34, 34)

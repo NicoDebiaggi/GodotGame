@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://scmb6u12qy3"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://scmb6u12qy3"]
 
 [ext_resource type="Texture2D" uid="uid://bp8xvmsulqdbq" path="res://Assets/GUI_theme/Vector/fantasy-ui-borders.svg" id="1_1r35m"]
-[ext_resource type="FontFile" uid="uid://c4tj2vqb8ye0x" path="res://Assets/GUI_theme/Fonts/FiraSans-Medium.ttf" id="2_d4t2u"]
+[ext_resource type="FontFile" uid="uid://bs3mxo2boise1" path="res://Assets/GUI_theme/Fonts/FiraSans-Bold.ttf" id="1_xkk0y"]
+[ext_resource type="FontFile" uid="uid://dgvofb2iwp62h" path="res://Assets/GUI_theme/Fonts/FiraSans-Medium.ttf" id="2_d4t2u"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xn161"]
 texture = ExtResource("1_1r35m")
@@ -42,10 +43,47 @@ modulate_color = Color(0.0708273, 0.0708272, 0.0708272, 0.760784)
 bg_color = Color(0.739288, 0.739288, 0.739288, 0.196078)
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yx1b6"]
+bg_color = Color(0.147672, 0.147672, 0.147672, 0.352941)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.756863, 0.545098, 0.0431373, 0.431373)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j103u"]
+bg_color = Color(0.894118, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.756863, 0.545098, 0.0431373, 0.431373)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rimb"]
+bg_color = Color(0.676287, 0.400588, 0.0640229, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.756863, 0.545098, 0.0431373, 0.431373)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [resource]
 default_base_scale = 1.0
 default_font = ExtResource("2_d4t2u")
 default_font_size = 24
+BoldLabel/base_type = &"Label"
+BoldLabel/fonts/font = ExtResource("1_xkk0y")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -56,3 +94,9 @@ Button/styles/normal = SubResource("StyleBoxTexture_e601v")
 Button/styles/pressed = SubResource("StyleBoxTexture_h3t1r")
 Panel/styles/panel = SubResource("StyleBoxTexture_om8ox")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_evcqg")
+ProgressBar/constants/outline_size = 2
+ProgressBar/styles/background = SubResource("StyleBoxFlat_yx1b6")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_j103u")
+ProgressBar_XP/base_type = &"ProgressBar"
+ProgressBar_XP/styles/background = SubResource("StyleBoxFlat_yx1b6")
+ProgressBar_XP/styles/fill = SubResource("StyleBoxFlat_5rimb")

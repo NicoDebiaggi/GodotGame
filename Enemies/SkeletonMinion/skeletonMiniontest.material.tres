@@ -1,0 +1,44 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://8ii5g20k7h7y"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_n74rq"]
+output_port_for_preview = 0
+parameter_name = "OverlayAlpha"
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_8wo35"]
+constant = Color(0, 0, 0, 1)
+
+[resource]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+
+uniform float OverlayAlpha = 1;
+
+
+
+void fragment() {
+// ColorConstant:9
+	vec4 n_out9p0 = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+
+
+// FloatParameter:11
+	float n_out11p0 = OverlayAlpha;
+
+
+// Output:0
+	ALBEDO = vec3(n_out9p0.xyz);
+	ALPHA = n_out11p0;
+
+
+}
+"
+modes/depth_draw = 1
+modes/cull = 2
+nodes/fragment/0/position = Vector2(1820, -100)
+nodes/fragment/9/node = SubResource("VisualShaderNodeColorConstant_8wo35")
+nodes/fragment/9/position = Vector2(1460, -120)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatParameter_n74rq")
+nodes/fragment/11/position = Vector2(1200, 40)
+nodes/fragment/connections = PackedInt32Array(9, 0, 0, 0, 11, 0, 0, 1)

@@ -9,6 +9,7 @@ extends CharacterBody3D
 @export var health: float = 30.0
 
 # Variables
+@onready var damageNumSpawner:DamageNumberSpawner = %damage_number_spawner
 @onready var animationTree: AnimationTree = $skeletonMinion_mesh/AnimationTree
 @onready var navAgent: NavigationAgent3D = $NavigationAgent3D
 const navAgentOffset = .3
@@ -89,6 +90,7 @@ func _on_area_3d_body_part_hit(damage_received:Variant, isCritic:Variant, critic
     var finalDamage = damage_received
     if isCritic:
       finalDamage *= critic_multiplier
+    damageNumSpawner.spawn_damage_number(finalDamage)
     health -= finalDamage
 
     # Knockback

@@ -5,5 +5,5 @@ func _on_play_button_button_up():
     "res://Levels/LevelOne/level_one.level.tscn",
     get_tree().root,
     self,
-    "wipe_to_right"
+    "fade_to_black"
   )

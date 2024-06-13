@@ -10,8 +10,10 @@ class_name player extends CharacterBody3D
 @export var MAX_HEALTH = 100
 
 @onready var knightRef = $Knight_mesh
-@onready var knightAnimationPlayer: AnimationTree = knightRef.get_node("AnimationTree")
+@onready var knightAnimationTree: AnimationTree = knightRef.get_node("AnimationTree")
+@onready var knightAnimationPlayer: AnimationPlayer = knightRef.get_node("AnimationPlayer")
 @onready var dashParticles = $Trail3D
+@onready var damageNumSpawner:DamageNumberSpawner = %damage_number_spawner
 
 signal game_over # Signal to be emitted when the player dies.
 
@@ -72,7 +74,7 @@ func _physics_process(delta):
 
 	# Set the run animation
 	var runBlendValue: float = ((velocity.length() / SPEED) * 2) - 1
-	var currentRunFastBlendValue: float = knightAnimationPlayer.get("parameters/Alive/run_fast_transition/blend_amount")
+	var currentRunFastBlendValue: float = knightAnimationTree.get("parameters/Alive/run_fast_transition/blend_amount")
 	var runFastBlendValue: float = 0.0
 
 	if runBlendValue > 1:
@@ -80,14 +82,14 @@ func _physics_process(delta):
 	else:
 		runFastBlendValue = lerp(currentRunFastBlendValue, 0.0, 0.01)
 
-	knightAnimationPlayer.set("parameters/Alive/run_transition/blend_amount", clamp(runBlendValue, -1, 1))
-	knightAnimationPlayer.set("parameters/Alive/run_fast_transition/blend_amount", clamp(runFastBlendValue, 0, 1))
+	knightAnimationTree.set("parameters/Alive/run_transition/blend_amount", clamp(runBlendValue, -1, 1))
+	knightAnimationTree.set("parameters/Alive/run_fast_transition/blend_amount", clamp(runFastBlendValue, 0, 1))
 	
 	move_and_slide()
 
 func kill():
 	isDead = true
-	knightAnimationPlayer.set("parameters/conditions/isDead", true)
+	knightAnimationTree.set("parameters/conditions/isDead", true)
 	await get_tree().create_timer(1.0).timeout
 	emit_signal("game_over")
 	# game over screen or something
@@ -99,9 +101,11 @@ func _on_area_3d_body_part_hit(damage_received, isCritic, critic_multiplier, _kn
 	if (isDead or just_hit):
 		return
 	else:
+		knightAnimationPlayer.play("Knight/hit")
 		get_node("just_hit").start()
 		just_hit = true
 		var finalDamage = damage_received
 		if isCritic:
 			finalDamage *= critic_multiplier
+		damageNumSpawner.spawn_damage_number(finalDamage)
 		health -= finalDamage

@@ -1,0 +1,95 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://cmenftbj4lf4k"]
+
+[ext_resource type="Texture2D" uid="uid://dw28xcm2mmpiv" path="res://Enemies/SkeletonMinion/skeletonMinion.texture.png" id="1_th6dh"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_28oh7"]
+constant = 0.5
+
+[sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_e36q6"]
+parameter_name = "hitFlash"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_mn1hj"]
+default_input_values = [0, 0.0, 1, 1.0, 2, 1e-05, 3, Vector3(0, 0, 0), 4, Vector3(0, 0, 0), 5, Vector3(0, 0, 0)]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_bntss"]
+parameter_name = "FlashColor"
+qualifier = 2
+default_value_enabled = true
+default_value = Color(0.918817, 0.918817, 0.918816, 1)
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_eupcl"]
+texture = ExtResource("1_th6dh")
+texture_type = 1
+
+[resource]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_8 : source_color;
+uniform bool hitFlash = false;
+instance uniform vec4 FlashColor : source_color = vec4(0.918817, 0.918817, 0.918816, 1.000000);
+
+
+
+void fragment() {
+// Texture2D:8
+	vec4 n_out8p0 = texture(tex_frg_8, UV);
+
+
+// FloatConstant:4
+	float n_out4p0 = 0.500000;
+
+
+// BooleanParameter:5
+	bool n_out5p0 = hitFlash;
+
+
+// ColorParameter:7
+	vec4 n_out7p0 = FlashColor;
+
+
+	vec3 n_out6p0;
+// If:6
+	float n_in6p1 = 1.00000;
+	float n_in6p2 = 0.00001;
+	vec3 n_in6p4 = vec3(0.00000, 0.00000, 0.00000);
+	vec3 n_in6p5 = vec3(0.00000, 0.00000, 0.00000);
+	if(abs((n_out5p0 ? 1.0 : 0.0) - n_in6p1) < n_in6p2)
+	{
+		n_out6p0 = vec3(n_out7p0.xyz);
+	}
+	else if((n_out5p0 ? 1.0 : 0.0) < n_in6p1)
+	{
+		n_out6p0 = n_in6p5;
+	}
+	else
+	{
+		n_out6p0 = n_in6p4;
+	}
+
+
+// Output:0
+	ALBEDO = vec3(n_out8p0.xyz);
+	ROUGHNESS = n_out4p0;
+	SPECULAR = n_out4p0;
+	EMISSION = n_out6p0;
+
+
+}
+"
+modes/depth_draw = 1
+modes/cull = 2
+nodes/fragment/0/position = Vector2(1820, -100)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatConstant_28oh7")
+nodes/fragment/4/position = Vector2(1360, 220)
+nodes/fragment/5/node = SubResource("VisualShaderNodeBooleanParameter_e36q6")
+nodes/fragment/5/position = Vector2(620, 220)
+nodes/fragment/6/node = SubResource("VisualShaderNodeIf_mn1hj")
+nodes/fragment/6/position = Vector2(1360, 440)
+nodes/fragment/7/node = SubResource("VisualShaderNodeColorParameter_bntss")
+nodes/fragment/7/position = Vector2(620, 580)
+nodes/fragment/8/node = SubResource("VisualShaderNodeTexture_eupcl")
+nodes/fragment/8/position = Vector2(1200, -400)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 3, 4, 0, 0, 4, 5, 0, 6, 0, 7, 0, 6, 3, 6, 0, 0, 5, 8, 0, 0, 0)

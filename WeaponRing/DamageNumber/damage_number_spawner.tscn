@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://btdvxwfcrcv77"]
+
+[ext_resource type="Script" path="res://DamageNumber/damage_number_spawner.gd" id="1_spovj"]
+
+[node name="damage_number_spawner" type="Node3D"]
+script = ExtResource("1_spovj")
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+unique_name_in_owner = true
